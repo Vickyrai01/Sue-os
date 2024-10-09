@@ -1,0 +1,99 @@
+@startuml
+
+class Persona {
+	suenios
+    --
+    suenios
+    felicidad  
+    cantHijos  
+    lugaresVisitados 
+    carreraSoniada
+    carrerasEstudiadas
+    tipoDePersona
+	--
+	cumplir(suenio)
+	sueniosPendientes()
+    aumentarFelicidad(felicidonios)
+    tieneHijos()
+    adoptarHijos(hijosAAdoptar)
+    viajarA(lugar)
+    esCarreraSoniada(carrera)
+    estudio(carrera)
+    estudiar(carrera)
+    cumplirSuenioMasPreciado()
+    esFeliz()
+    felicidoniosDeSueniosPendientes()
+    esAmbisiosa()
+    sueniosAmbisiosos()
+}
+abstract class Suenio {
+    cumplido
+    --
+    estaPendiente()
+    cumplirPara(unaPersona)
+    {abstract}validar(unaPersona)
+    {abstract}realizarPara(unaPersona)
+    cumplir()
+    {abstract}felicidonios()
+    esAmbisioso() 
+}
+
+class SuenioSimple extends Suenio{
+	felicidonios
+    --
+	felicidonios()
+}
+
+class SuenioMultiple extends Suenio {
+	suenios
+	--
+	felicidonios()
+
+    validar(unaPersona)
+    realizarPara(unaPersona) 
+    seValidanTodosEn(unaPersona)
+}
+
+class Adoptar extends SuenioSimple{
+    hijosAAdoptar
+    --
+    validar(unaPersona)
+    realizarPara(unaPersona)
+
+}
+class Viajar extends SuenioSimple{
+    lugar
+    --
+    validar(unaPersona)
+    realizarPara(unaPersona)
+}
+class Recibirse extends SuenioSimple{
+    carrera
+    --
+    validar(unaPersona) 
+    realizarPara(unaPersona)
+}
+Persona ->"*" Suenio
+SuenioMultiple ->"*" Suenio
+
+object realista {
+   suenioMasPreciado(unosSuenios) 
+}
+object alocado{
+   suenioMasPreciado(unosSuenios) 
+}
+object obsesivo{
+   suenioMasPreciado(unosSuenios)
+}
+interface TipoDePersona{
+    --
+    suenioMasPreciado()
+}
+
+realista .u.|> TipoDePersona
+alocado .u.|> TipoDePersona
+obsesivo .u.|> TipoDePersona
+
+Persona -> TipoDePersona
+
+@enduml
